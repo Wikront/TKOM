@@ -237,6 +237,10 @@ public class Lexer {
                 }
 
             }
+            if(value != "") {
+                Token.TYPE type = getTokenType(value);
+                tokens.add(new Token(value, filename, type, lineCounter));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
