@@ -52,5 +52,9 @@ public class Loader {
         lexer.addWeekday("sunday");
         lexer.addHour("h");
         lexer.addMinute("m");
+        lexer.addSingleChar("(");
+        lexer.addSingleChar(")");
+        lexer.addSingleChar("{");
+        lexer.addSingleChar("}");
     }
 }

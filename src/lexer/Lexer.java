@@ -29,6 +29,7 @@ public class Lexer {
     private LinkedList<String> weekday = new LinkedList<>();
     private LinkedList<String> hour = new LinkedList<>();
     private LinkedList<String> minute = new LinkedList<>();
+    private LinkedList<String> singleChar = new LinkedList<>();
 
     public void addCondition(String e) {
         condition.add(e);
@@ -104,6 +105,10 @@ public class Lexer {
 
     public void addMinute(String e) {
         minute.add(e);
+    }
+
+    public void addSingleChar(String e){
+        singleChar.add(e);
     }
 
     public boolean isCondition(String e) {
@@ -182,6 +187,10 @@ public class Lexer {
         return minute.contains(e);
     }
 
+    public boolean isSingleChar(String e){
+        return singleChar.contains(e);
+    }
+
     private Token.TYPE getTokenType(String string) {
         if (isCondition(string)) return Token.TYPE.CONDITION;
         if (isContact(string)) return Token.TYPE.CONTACT;
@@ -218,6 +227,16 @@ public class Lexer {
         String value = "";
         try {
             while ((character = reader.read()) != -1) {
+
+                if(isSingleChar(Character.toString((char)character))){
+                    if(value != "") {
+                        Token.TYPE type = getTokenType(value);
+                        tokens.add(new Token(value, filename, type, lineCounter));
+                    }
+                    Token.TYPE type = getTokenType(Character.toString((char)character));
+                    tokens.add(new Token(Character.toString((char)character), filename, type, lineCounter));
+                    continue;
+                }
 
                 if(character == ' ' || character == '\t' ) {
                     if(value != "") {
