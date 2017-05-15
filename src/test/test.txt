@@ -1,0 +1,17 @@
+condition lokalizacja location around 20 52.233250 20.992531
+condition miesiac month from January to May
+
+if ( lokalizacja and miesiac )
+{
+    [ logloglog ]
+}
+
+every ( 456 )
+{
+    [ log log ]
+}
+
+foreach
+{
+    [ message ]
+}

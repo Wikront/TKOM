@@ -1,8 +1,9 @@
 package test;
 
-import lexer.Loader;
+import lexer.Lexer;
 import lexer.Token;
 import org.junit.*;
+import source.Source;
 
 import java.util.LinkedList;
 
@@ -11,16 +12,18 @@ import java.util.LinkedList;
  */
 public class LexerTest {
 
-    private Loader loader;
     private LinkedList<Token> tokens;
+    private Source source;
+    private Lexer lexer;
     private String[] values;
     private int[] lines = {1,1,1,1,2,2,2,2,2,2,2,3,3,3,4,4,5,5,5,5,5,5,5,6,6,6,6,6,7,7,7,7,8,8,9,9,9,9,10,10,11,11,12,12};
 
 
     @Before
     public void intialize(){
-        loader = new Loader("/Users/Wiktor/IdeaProjects/TKOM/src/test/testFile.txt");
-        tokens = loader.getTokens();
+        source = new Source("/Users/Wiktor/dev/IdeaProjects/TKOM/src/test/testFile.txt");
+        lexer = new Lexer(source);
+        tokens = lexer.convertToTokens();
         String file =  "condition xd contact 345 romek and tomek or wiktor not wojtek equals { } ( ) from monday to tuesday around h 34 " +
         "if s ms foreach test vibration or sound rolki every sunday location 345 month 1 day 3 h 23 m 3";
         values = file.split(" ");
@@ -39,7 +42,7 @@ public class LexerTest {
     public void TokensLinesShouldBeCorrect() {
 
         for(int i = 0; i < values.length; i++) {
-            Assert.assertEquals("Token.Line should be correct", lines[i], tokens.get(i).getLine());
+            Assert.assertEquals("Token.Line should be correct", lines[i], tokens.get(i).getPosition().getLineNumber());
         }
 
     }

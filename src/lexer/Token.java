@@ -1,5 +1,7 @@
 package lexer;
 
+import source.TextPosition;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,8 +13,7 @@ public class Token {
 
     private TYPE type;
     private String value;
-    private String filename;
-    private int line;
+    private TextPosition position;
 
     public enum TYPE {
         CONDITION,
@@ -34,19 +35,28 @@ public class Token {
         WEEKDAY,
         HOUR,
         MINUTE,
-        STRING
+        STRING,
+        NUMBER,
+        EOF,
+        TIME,
+        NOT,
+        OPEN_MESSAGE,
+        CLOSE_MESSAGE,
+        MONTH_VALUE,
+        TO,
+        AROUND,
+        WEEKDAY_TYPE
     }
 
-    public Token(String value, String filename, TYPE type, int line) {
+    public Token(String value, TYPE type, TextPosition position) {
         this.value = value;
-        this.filename = filename;
         this.type = type;
-        this.line = line;
+        this.position = position;
     }
 
     @Override
     public String toString() {
-        return "Value: " + value + " | Token type: " + type + " | File: " + filename + " | Line: " + line;
+        return "Value: " + value + " | Token type: " + type + " | Line: " + position.getLineNumber() + " | Column: " + position.getColumnNumber();
     }
 
     public TYPE getType() {
@@ -57,11 +67,7 @@ public class Token {
         return value;
     }
 
-    public String getFile() {
-        return filename;
-    }
-
-    public int getLine() {
-        return line;
+    public TextPosition getPosition() {
+        return position;
     }
 }
