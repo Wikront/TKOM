@@ -127,11 +127,23 @@ public class Parser {
         Location location = new Location();
         accept(Token.TYPE.AROUND);
         accept(Token.TYPE.NUMBER);
-        location.setAround(Integer.parseInt(token.getValue()));
+        try {
+            location.setAround(Integer.parseInt(token.getValue()));
+        }catch (Exception e){
+
+        }
         accept(Token.TYPE.NUMBER);
-        location.setX(Float.parseFloat(token.getValue()));
+        try {
+            location.setX(Float.parseFloat(token.getValue()));
+        }catch (Exception e){
+
+        }
         accept(Token.TYPE.NUMBER);
-        location.setY(Float.parseFloat(token.getValue()));
+        try {
+            location.setY(Float.parseFloat(token.getValue()));
+        }catch (Exception e){
+
+        }
         return location;
     }
 
@@ -169,13 +181,33 @@ public class Parser {
 
     private Time time(){
         Time time = new Time();
-        /**IMPLEMENT THIS*/
+        accept(Token.TYPE.NUMBER);
+        try {
+            time.setHours(Integer.parseInt(token.getValue()));
+        }catch (Exception e){
+
+        }
+        accept(Token.TYPE.HOUR);
+        accept(Token.TYPE.NUMBER);
+        try {
+            time.setMinutes(Integer.parseInt(token.getValue()));
+        }catch (Exception e){
+
+        }
+        accept(Token.TYPE.MINUTE);
         return time;
     }
 
     private Contact contact(){
         Contact contact = new Contact();
-        /**IMPLEMENT THIS*/
+        accept(Token.TYPE.STRING);
+        contact.setName(token.getValue());
+        accept(Token.TYPE.NUMBER);
+        try {
+            contact.setNumber(Integer.parseInt(token.getValue()));
+        }catch (Exception e){
+
+        }
         return contact;
     }
 

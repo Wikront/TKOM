@@ -1,5 +1,7 @@
-condition lokalizacja location around 20 52.233250 20.992531
+condition lokalizacja location around 30 52.233250 20.992531
 condition miesiac month from January to May
+contact wiktor 516262750
+condition czas time 2 h 34 m
 
 if ( lokalizacja and miesiac )
 {
