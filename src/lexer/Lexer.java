@@ -67,6 +67,7 @@ public class Lexer {
         tokenTypes.put("October", Token.TYPE.MONTH_VALUE);
         tokenTypes.put("November", Token.TYPE.MONTH_VALUE);
         tokenTypes.put("December", Token.TYPE.MONTH_VALUE);
+        tokenTypes.put("cond", Token.TYPE.COND);
     }
 
     private HashMap<Character, Integer> noWhitespaceTokens = new HashMap<>();

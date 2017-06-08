@@ -6,6 +6,10 @@ package utils;
 public class ForeachStatement extends Node {
     Block block;
 
+    public Block getBlock() {
+        return block;
+    }
+
     public ForeachStatement() {
         super(AST.NODE_TYPE.FOREACH_STATEMENT);
     }

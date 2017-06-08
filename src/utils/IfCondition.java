@@ -17,6 +17,10 @@ public class IfCondition extends Node {
         operators = new LinkedList<>();
     }
 
+    public String getCondition(){
+        return singleConditions.get(0);
+    }
+
     public void addSingleCondition(String condition){
         singleConditions.add(condition);
     }

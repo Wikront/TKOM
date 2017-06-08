@@ -47,13 +47,13 @@ public class Parser {
                 return i;
             }
         }
-        error.unexpected(token);
+        error.unexpected(token, types);
         return -1;
     }
 
     private Program program(){
         Program program = new Program();
-        Token.TYPE allowed[] = {Token.TYPE.CONDITION, Token.TYPE.IF_STATEMENT, Token.TYPE.FOREACH_STATEMENT, Token.TYPE.EVERY_STATEMENT, Token.TYPE.CONTACT, Token.TYPE.EOF};
+        Token.TYPE allowed[] = {Token.TYPE.CONDITION, Token.TYPE.IF_STATEMENT, Token.TYPE.CONTACT, Token.TYPE.COND, Token.TYPE.EOF};
         while (token.getType() != Token.TYPE.EOF){
             int index = accept(allowed);
             switch (index){
@@ -64,13 +64,11 @@ public class Parser {
                     program.addIfStatement(ifStatement());
                     break;
                 case 2:
-                    program.addForeachStatement(foreachStatement());
+                    program.addContact(contact());
                     break;
                 case 3:
-                    program.addEveryStatement(everyStatement());
+                    program.addCondition(cond());
                     break;
-                case 4:
-                    program.addContact(contact());
             }
         }
 
@@ -103,6 +101,39 @@ public class Parser {
             case 4:
                 condition.setType(Token.TYPE.TIME);
                 condition.setTime(time());
+        }
+        return condition;
+    }
+
+    private Condition cond(){
+        Condition condition = new Condition();
+        condition.setMultipleCondition(true);
+        accept(Token.TYPE.STRING);
+        condition.setName(token.getValue());
+        Token.TYPE allowed[] = {Token.TYPE.STRING, Token.TYPE.NOT};
+        int index = accept(allowed);
+        switch (index){
+            case 0:
+                condition.setFirstConditionName(token.getValue());
+                break;
+            case 1:
+                condition.setFirsNot();
+                accept(Token.TYPE.STRING);
+                condition.setFirstConditionName(token.getValue());
+                break;
+        }
+        accept(Token.TYPE.BOOL_OPERATOR);
+        condition.setOperator(token.getValue());
+        index = accept(allowed);
+        switch (index){
+            case 0:
+                condition.setSecondConditionName(token.getValue());
+                break;
+            case 1:
+                condition.setSecondNot();
+                accept(Token.TYPE.STRING);
+                condition.setSecondConditionName(token.getValue());
+                break;
         }
         return condition;
     }
@@ -183,14 +214,16 @@ public class Parser {
         Time time = new Time();
         accept(Token.TYPE.NUMBER);
         try {
-            time.setHours(Integer.parseInt(token.getValue()));
+            time.setHoursFrom(Integer.parseInt(token.getValue()));
+            time.setHoursTo(Integer.parseInt(token.getValue()));
         }catch (Exception e){
 
         }
         accept(Token.TYPE.HOUR);
         accept(Token.TYPE.NUMBER);
         try {
-            time.setMinutes(Integer.parseInt(token.getValue()));
+            time.setMinutesFrom(Integer.parseInt(token.getValue()));
+            time.setMinutesTo(Integer.parseInt(token.getValue()));
         }catch (Exception e){
 
         }
@@ -213,7 +246,11 @@ public class Parser {
 
     private IfStatement ifStatement(){
         IfStatement ifStatement = new IfStatement();
-        ifStatement.setIfCondition(ifCondition());
+        //ifStatement.setIfCondition(ifCondition());
+        accept(Token.TYPE.OPEN_BRACKET);
+        accept(Token.TYPE.STRING);
+        ifStatement.setCondition(token.getValue());
+        accept(Token.TYPE.CLOSE_BRACKET);
         ifStatement.setBlock(block());
         return ifStatement;
     }
@@ -237,39 +274,40 @@ public class Parser {
     private IfCondition ifCondition(){
         IfCondition ifCondition = new IfCondition();
         accept(Token.TYPE.OPEN_BRACKET);
-        while(token.getType() != Token.TYPE.CLOSE_BRACKET){
-            Token.TYPE allowed[] = {Token.TYPE.NOT, Token.TYPE.STRING};
-            int index = accept(allowed);
-            if(index == 0){
-                accept(Token.TYPE.STRING);
-                ifCondition.addNot(token.getValue());
-            }
-            ifCondition.addSingleCondition(token.getValue());
-            Token.TYPE allowed1[] = {Token.TYPE.CLOSE_BRACKET, Token.TYPE.BOOL_OPERATOR};
-            accept(allowed1);
-            if(index == 1){
-                ifCondition.addOperator(token.getValue());
-            }else{
-               break;
-            }
-        }
+        accept(Token.TYPE.STRING);
+        ifCondition.addSingleCondition(token.getValue());
+        accept(Token.TYPE.CLOSE_BRACKET);
+
         return ifCondition;
     }
 
     private Block block(){
         Block block = new Block();
         accept(Token.TYPE.OPEN_INSTRUCTION);
-        accept(Token.TYPE.OPEN_MESSAGE);
-        while (token.getType() != Token.TYPE.CLOSE_MESSAGE){
-            Token.TYPE allowed[] = {Token.TYPE.STRING, Token.TYPE.CLOSE_MESSAGE};
-            int index = accept(allowed);
-            if(index == 0){
-                block.addWord(token.getValue());
-            }else {
-                break;
+        Token.TYPE allowedTokens[] = {Token.TYPE.FOREACH_STATEMENT, Token.TYPE.OPEN_MESSAGE, Token.TYPE.EVERY_STATEMENT};
+        int tokenIndex = accept(allowedTokens);
+        if(tokenIndex == 2) {
+            block.setEveryStatement(everyStatement());
+            block.setType(0);
+        }
+        if(tokenIndex == 1) {
+            while (token.getType() != Token.TYPE.CLOSE_MESSAGE) {
+                Token.TYPE allowed[] = {Token.TYPE.STRING, Token.TYPE.CLOSE_MESSAGE};
+                int index = accept(allowed);
+                if (index == 0) {
+                    block.addWord(token.getValue());
+                } else {
+                    break;
+                }
             }
+            block.setType(1);
+        }
+        else if(tokenIndex == 0){
+            block.setForeachStatement(foreachStatement());
+            block.setType(2);
         }
         accept(Token.TYPE.CLOSE_INSTRUCTION);
         return block;
     }
+
 }

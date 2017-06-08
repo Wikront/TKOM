@@ -50,27 +50,27 @@ public class LexerTest {
     @Test
     public void TokensTypesShouldBeCorrect() {
 
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.CONDITION, tokens.get(0).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.STRING, tokens.get(1).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.CONTACT, tokens.get(2).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.BOOL_OPERATOR, tokens.get(5).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.OPERATOR, tokens.get(11).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.OPEN_INSTRUCTION, tokens.get(12).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.CLOSE_INSTRUCTION, tokens.get(13).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.OPEN_BRACKET, tokens.get(14).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.CLOSE_BRACKET, tokens.get(15).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.WEEKDAY, tokens.get(17).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.HOUR, tokens.get(21).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.IF_STATEMENT, tokens.get(23).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.TIME_UNIT, tokens.get(24).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.FOREACH_STATEMENT, tokens.get(26).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.ALARM_TYPE, tokens.get(30).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.EVERY_STATEMENT, tokens.get(32).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.LOCATION, tokens.get(34).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.MONTH, tokens.get(36).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.DAY, tokens.get(38).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.HOUR, tokens.get(40).getType());
-            Assert.assertEquals("Token.Type should be correct", Token.TYPE.MINUTE, tokens.get(42).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.CONDITION, tokens.get(0).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.STRING, tokens.get(1).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.CONTACT, tokens.get(2).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.BOOL_OPERATOR, tokens.get(5).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.OPERATOR, tokens.get(11).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.OPEN_INSTRUCTION, tokens.get(12).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.CLOSE_INSTRUCTION, tokens.get(13).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.OPEN_BRACKET, tokens.get(14).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.CLOSE_BRACKET, tokens.get(15).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.WEEKDAY, tokens.get(17).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.HOUR, tokens.get(21).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.IF_STATEMENT, tokens.get(23).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.TIME_UNIT, tokens.get(24).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.FOREACH_STATEMENT, tokens.get(26).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.ALARM_TYPE, tokens.get(30).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.EVERY_STATEMENT, tokens.get(32).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.LOCATION, tokens.get(34).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.MONTH, tokens.get(36).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.DAY, tokens.get(38).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.HOUR, tokens.get(40).getType());
+            Assert.assertEquals("Token.Condition should be correct", Token.TYPE.MINUTE, tokens.get(42).getType());
     }
 
     @Test

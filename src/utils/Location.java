@@ -4,6 +4,18 @@ package utils;
  * Created by Wiktor on 15.05.2017.
  */
 public class Location extends Node {
+    public int getAround() {
+        return around;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
     int around;
     float x;
     float y;

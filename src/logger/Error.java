@@ -13,9 +13,14 @@ public class Error {
                 + token.getType() + "> value: \"" + token.getValue() + "\" at Line: " +
                     token.getPosition().getLineNumber() + " at Column: " + token.getPosition().getColumnNumber());
     }
-    public void unexpected(Token token){
+    public void unexpected(Token token, Token.TYPE types[]){
+        String allowed = "";
+        for( int i = 0; i < types.length; i++){
+            allowed = allowed + " " + types[i];
+        }
         System.out.println("Unexpected token: <" + token.getType() + "> value: \"" + token.getValue() + "\" at Line: "+
-                + token.getPosition().getLineNumber() + " at Column: " + token.getPosition().getColumnNumber());
+                + token.getPosition().getLineNumber() + " at Column: " + token.getPosition().getColumnNumber() +
+                    " Allowed tokens: " + allowed);
     }
     public void undeclared(String name){
         System.out.println("Condition <" + name + "> used but undeclared");

@@ -45,7 +45,8 @@ public class Token {
         MONTH_VALUE,
         TO,
         AROUND,
-        WEEKDAY_TYPE
+        WEEKDAY_TYPE,
+        COND
     }
 
     public Token(String value, TYPE type, TextPosition position) {

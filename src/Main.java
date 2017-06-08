@@ -1,3 +1,4 @@
+import generator.Generator;
 import lexer.Lexer;
 import parser.Parser;
 import semantics.Semantics;
@@ -12,5 +13,6 @@ public class Main {
         Lexer lexer = new Lexer(source);
         Parser parser = new Parser(lexer);
         Semantics semantics = new Semantics(parser.getProgram());
+        Generator generator = new Generator(parser.getProgram());
     }
 }

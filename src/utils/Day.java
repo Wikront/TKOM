@@ -4,6 +4,14 @@ package utils;
  * Created by Wiktor on 15.05.2017.
  */
 public class Day extends Node {
+    public int getFrom() {
+        return from;
+    }
+
+    public int getTo() {
+        return to;
+    }
+
     int from;
     int to;
 
@@ -18,4 +26,5 @@ public class Day extends Node {
         this.from = from;
         this.to = from;
     }
+
 }
