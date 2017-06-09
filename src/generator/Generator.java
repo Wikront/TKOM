@@ -17,14 +17,26 @@ public class Generator {
     LinkedList<generator.Contact> contacts;
     LinkedList<Notification> notifications;
 
-    public Generator(Program program){
+
+    public Generator(Program program) {
         conditions = new LinkedList<>();
         variablesNames = new HashMap<>();
+        contacts = new LinkedList<>();
+        notifications = new LinkedList<>();
         this.program = program;
         generateVariables();
         generateContacts();
-        System.out.println(conditions);
-        System.out.println(variablesNames);
+        generateNotifications();
+    }
+
+    public LinkedList<Response> check(){
+        LinkedList<Response> responses = new LinkedList<>();
+        for (int i = 0; i < notifications.size(); i++) {
+            Response response = notifications.get(i).check();
+            if(response != null)
+            responses.add(response);
+        }
+        return responses;
     }
 
     private void generateVariables(){
@@ -60,6 +72,13 @@ public class Generator {
         LinkedList<utils.Contact> contacts = program.getContacts();
         for(int i = 0; i < contacts.size(); i++){
             processContacts(contacts.get(i));
+        }
+    }
+
+    private void generateNotifications(){
+        LinkedList<IfStatement> ifStatements = program.getIfStatements();
+        for( int i = 0; i < ifStatements.size(); i++){
+            processIfStatement(ifStatements.get(i));
         }
     }
 
@@ -121,7 +140,7 @@ public class Generator {
     private void processIfStatement(IfStatement ifStatement){
         Block block = ifStatement.getBlock();
         String condition = ifStatement.getCondition();
-        if(block.getType() == 0){
+        if(block.getType() == 2){
             ForeachStatement foreachStatement = block.getForeachStatement();
             String message = foreachStatement.getBlock().getMessage();
             notifications.add(new Notification(message, contacts, conditions.get(variablesNames.get(condition))));
@@ -129,7 +148,7 @@ public class Generator {
         if(block.getType() == 1){
             notifications.add(new Notification(block.getMessage(), conditions.get(variablesNames.get(condition))));
         }
-        if(block.getType() == 2){
+        if(block.getType() == 0){
             EveryStatement everyStatement =block.getEveryStatement();
             int time = everyStatement.getTime();
             String message = everyStatement.getBlock().getMessage();

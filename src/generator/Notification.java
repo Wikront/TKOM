@@ -39,41 +39,39 @@ public class Notification {
         this.condition = condition;
     }
 
-    private void trigger(){
+    private Response trigger(){
+//        if(this.type == 0){
+//            System.out.println("notification: " + message);
+//        }
+//        if(this.type == 1){
+//            Timer timer = new Timer(true);
+//            timer.schedule(new ScheduledTask(message, count), 1, interval);
+//        }
+//        if(this.type == 2){
+//            for(int i = 0; i < contacts.size(); i++){
+//                System.out.println("message: " + message + " to contact: " + contacts.get(i));
+//            }
+//        }
+
         if(this.type == 0){
-            System.out.println("notification: " + message);
+            return new Response(message);
         }
         if(this.type == 1){
-            Timer timer = new Timer(true);
-            timer.schedule(new ScheduledTask(message, count), 1, interval);
+            return new Response(message, interval, count);
         }
         if(this.type == 2){
             for(int i = 0; i < contacts.size(); i++){
-                System.out.println("message: " + message + " to contact: " + contacts.get(i));
+                return new Response(message, contacts);
             }
         }
+        return null;
     }
 
-    public void check(){
+    public Response check(){
         if(condition.check())
-            trigger();
+            return trigger();
+        else return null;
     }
 }
 
-class ScheduledTask extends TimerTask {
-    String message;
-    int count;
 
-    public ScheduledTask(String message, int count){
-        this.message = message;
-        this.count = count;
-    }
-
-    public void run() {
-        System.out.println("alarm: " + message);
-        count --;
-        if(count == 0){
-            this.cancel();
-        }
-    }
-}

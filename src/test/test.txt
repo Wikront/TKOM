@@ -1,20 +1,19 @@
 condition lokalizacja location around 30 52.233250 20.992531
 condition miesiac month from January to May
 contact wiktor 516262750
-condition czas time  2 h 34 m
+condition czas time equals 23 h 02 m
 condition msc month equals March
+condition test time from 2 h 34 m to 24 h 9 m
+condition mes month from January to August
+condition czs time from 8 h 4 m to 14 h 6 m
 
 cond mix not lokalizacja and not miesiac
+cond testcond mes and czs
 
 if ( mix )
 {
 
     [ logloglog ]
-}
-
-every ( 456 )
-{
-    [ log log ]
 }
 
 if ( mix )
@@ -23,4 +22,22 @@ if ( mix )
     {
         [ message ]
     }
+}
+
+if ( mix )
+{
+    every ( 456 )
+    {
+        [ log log ]
+    }
+}
+
+if ( czas )
+{
+    [ test1 ]
+}
+
+if ( testcond )
+{
+    [ testcond ]
 }

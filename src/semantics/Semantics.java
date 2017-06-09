@@ -37,14 +37,14 @@ public class Semantics {
                 error.redefinedContact(program.getContacts().get(i).getName());
             }
         }
-        for(int i = 0; i < program.getIfStatements().size(); i++){
-            IfStatement ifStatement = program.getIfStatements().get(i);
-            for(int j = 0; j < ifStatement.getIfCondition().getSingleConditions().size(); j++){
-                if(!declaredConditions.containsKey(ifStatement.getIfCondition().getSingleConditions().get(j))){
-                    error.undeclared(ifStatement.getIfCondition().getSingleConditions().get(j));
-                }
-            }
-        }
+//        for(int i = 0; i < program.getIfStatements().size(); i++){
+//            IfStatement ifStatement = program.getIfStatements().get(i);
+//            for(int j = 0; j < ifStatement.getIfCondition().getSingleConditions().size(); j++){
+//                if(!declaredConditions.containsKey(ifStatement.getIfCondition().getSingleConditions().get(j))){
+//                    error.undeclared(ifStatement.getIfCondition().getSingleConditions().get(j));
+//                }
+//            }
+//        }
     }
 
 }

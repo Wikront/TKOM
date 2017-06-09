@@ -110,6 +110,7 @@ public class Parser {
         condition.setMultipleCondition(true);
         accept(Token.TYPE.STRING);
         condition.setName(token.getValue());
+        condition.setType(Token.TYPE.COND);
         Token.TYPE allowed[] = {Token.TYPE.STRING, Token.TYPE.NOT};
         int index = accept(allowed);
         switch (index){
@@ -212,22 +213,56 @@ public class Parser {
 
     private Time time(){
         Time time = new Time();
-        accept(Token.TYPE.NUMBER);
-        try {
-            time.setHoursFrom(Integer.parseInt(token.getValue()));
-            time.setHoursTo(Integer.parseInt(token.getValue()));
-        }catch (Exception e){
+        accept(Token.TYPE.OPERATOR);
+        if(token.getValue().equals("from")){
+            accept(Token.TYPE.NUMBER);
+            try {
+                time.setHoursFrom(Integer.parseInt(token.getValue()));
+            }catch (Exception e){
 
-        }
-        accept(Token.TYPE.HOUR);
-        accept(Token.TYPE.NUMBER);
-        try {
-            time.setMinutesFrom(Integer.parseInt(token.getValue()));
-            time.setMinutesTo(Integer.parseInt(token.getValue()));
-        }catch (Exception e){
+            }
+            accept(Token.TYPE.HOUR);
+            accept(Token.TYPE.NUMBER);
+            try {
+                time.setMinutesFrom(Integer.parseInt(token.getValue()));
+            }catch (Exception e){
 
+            }
+            accept(Token.TYPE.MINUTE);
+            accept(Token.TYPE.TO);
+            accept(Token.TYPE.NUMBER);
+            try {
+                time.setHoursTo(Integer.parseInt(token.getValue()));
+            }catch (Exception e){
+
+            }
+            accept(Token.TYPE.HOUR);
+            accept(Token.TYPE.NUMBER);
+            try {
+                time.setMinutesTo(Integer.parseInt(token.getValue()));
+            }catch (Exception e){
+
+            }
+            accept(Token.TYPE.MINUTE);
+
+        } else if (token.getValue().equals("equals")){
+            accept(Token.TYPE.NUMBER);
+            try {
+                time.setHoursFrom(Integer.parseInt(token.getValue()));
+                time.setHoursTo(Integer.parseInt(token.getValue()));
+            }catch (Exception e){
+
+            }
+            accept(Token.TYPE.HOUR);
+            accept(Token.TYPE.NUMBER);
+            try {
+                time.setMinutesFrom(Integer.parseInt(token.getValue()));
+                time.setMinutesTo(Integer.parseInt(token.getValue()));
+            }catch (Exception e){
+
+            }
+            accept(Token.TYPE.MINUTE);
         }
-        accept(Token.TYPE.MINUTE);
         return time;
     }
 

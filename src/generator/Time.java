@@ -38,6 +38,8 @@ public class Time implements Condition {
             }
 
         } else {
+            if(currentHour == hourFrom && currentMinute == minuteFrom && currentMinute == minuteTo && currentHour == hourTo)
+                return true;
             if(currentHour == hourFrom){
                 if(currentMinute >= minuteFrom && currentMinute <= minuteTo){
                     return true;
